@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, signal, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -13,7 +13,7 @@ import { App } from '../../models/app.model';
   templateUrl: './publish-app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PublishAppComponent implements OnInit {
+export class PublishAppComponent {
   private fb = inject(FormBuilder);
   private appService = inject(AppService);
   private authService = inject(AuthService);
@@ -35,15 +35,6 @@ export class PublishAppComponent implements OnInit {
     iconUrl: ['', Validators.required],
     screenshots: [[] as string[], [Validators.required, Validators.minLength(1)]],
   });
-  
-  ngOnInit(): void {
-    if (!this.currentUser()) {
-      // Use setTimeout to avoid navigation during the component's initialization phase.
-      setTimeout(() => {
-        this.router.navigate(['/auth'], { queryParams: { returnUrl: '/publish' } });
-      });
-    }
-  }
 
   onIconSelected(event: Event): void {
     const input = event.target as HTMLInputElement;

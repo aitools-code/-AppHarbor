@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
 
 export const appRoutes: Routes = [
   { 
@@ -11,7 +12,8 @@ export const appRoutes: Routes = [
   },
   { 
     path: 'publish', 
-    loadComponent: () => import('./components/publish-app/publish-app.component').then(m => m.PublishAppComponent) 
+    loadComponent: () => import('./components/publish-app/publish-app.component').then(m => m.PublishAppComponent),
+    canActivate: [authGuard]
   },
   { 
     path: 'auth', 
@@ -19,15 +21,18 @@ export const appRoutes: Routes = [
   },
   { 
     path: 'user-dashboard', 
-    loadComponent: () => import('./components/user-dashboard/user-dashboard.component').then(m => m.UserDashboardComponent)
+    loadComponent: () => import('./components/user-dashboard/user-dashboard.component').then(m => m.UserDashboardComponent),
+    canActivate: [authGuard]
   },
   { 
     path: 'publisher-dashboard', 
-    loadComponent: () => import('./components/publisher-dashboard/publisher-dashboard.component').then(m => m.PublisherDashboardComponent)
+    loadComponent: () => import('./components/publisher-dashboard/publisher-dashboard.component').then(m => m.PublisherDashboardComponent),
+    canActivate: [authGuard]
   },
   {
     path: 'account-settings',
-    loadComponent: () => import('./components/account-settings/account-settings.component').then(m => m.AccountSettingsComponent)
+    loadComponent: () => import('./components/account-settings/account-settings.component').then(m => m.AccountSettingsComponent),
+    canActivate: [authGuard]
   },
   {
     path: 'help',

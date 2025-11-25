@@ -30,9 +30,6 @@ export class AccountSettingsComponent implements OnInit {
         name: user.name,
         email: user.email,
       });
-    } else {
-      // Use setTimeout to avoid navigation during the component's initialization phase.
-      setTimeout(() => this.router.navigate(['/auth']));
     }
   }
 
