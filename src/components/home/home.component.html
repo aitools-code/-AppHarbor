@@ -1,0 +1,35 @@
+<!-- Categories Section -->
+<section class="sticky top-16 z-40 bg-white/80 backdrop-blur-lg border-b border-slate-200">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-start sm:justify-center overflow-x-auto">
+      <div class="flex space-x-4 sm:space-x-8 -mb-px">
+        @for (category of categories(); track category) {
+          <button 
+            (click)="selectCategory(category)"
+            [class]="'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors ' + (selectedCategory() === category ? 'border-green-500 text-green-600' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300')">
+            {{ category }}
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Apps Grid -->
+<section class="py-8 sm:py-12">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    @if (filteredApps().length > 0) {
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+        @for (app of filteredApps(); track app.id; let i = $index) {
+          <app-card [app]="app" />
+        }
+      </div>
+    } @else {
+      <div class="text-center py-16">
+        <i class="fa-solid fa-ghost text-6xl text-slate-400 mb-4"></i>
+        <h3 class="text-2xl font-bold text-slate-700">No Apps Found</h3>
+        <p class="text-slate-500 mt-2">Try adjusting your search or category filters.</p>
+      </div>
+    }
+  </div>
+</section>

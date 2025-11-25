@@ -1,0 +1,102 @@
+<div class="min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+    <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center space-x-4">
+          <div class="flex-shrink-0">
+            <a routerLink="/" class="text-2xl font-bold text-green-600">
+              <i class="fa-solid fa-anchor"></i> AppHarbor
+            </a>
+          </div>
+          <div class="hidden md:block">
+            <div class="ml-10 flex items-baseline space-x-4">
+              <a routerLink="/" routerLinkActive="text-green-600 border-green-600" [routerLinkActiveOptions]="{exact: true}" class="text-slate-600 hover:text-green-600 px-1 py-2 border-b-2 border-transparent text-sm font-medium">Apps</a>
+              @if (isPublisher()) {
+                <a routerLink="/publish" routerLinkActive="text-green-600 border-green-600" class="text-slate-600 hover:text-green-600 px-1 py-2 border-b-2 border-transparent text-sm font-medium">Publish</a>
+              }
+              <a routerLink="/developers" class="text-slate-600 hover:text-green-600 px-1 py-2 border-b-2 border-transparent text-sm font-medium">Developers</a>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center space-x-4">
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
+            </span>
+            <input 
+              type="text" 
+              placeholder="Search apps..." 
+              [value]="searchTerm()"
+              (input)="onSearch($event)"
+              class="bg-slate-200 border border-slate-300 text-slate-800 placeholder-slate-500 text-sm rounded-full focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5 transition duration-300"
+            />
+          </div>
+          <div class="flex items-center">
+            @if (currentUser(); as user) {
+              <div class="flex items-center space-x-3">
+                <span class="text-sm font-medium text-slate-700">Hi, {{ user.name }}</span>
+                <button (click)="logout()" class="text-slate-600 hover:text-green-600 text-sm font-medium">
+                  <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+              </div>
+            } @else {
+               <a routerLink="/auth" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-300 text-sm">
+                Login / Sign Up
+              </a>
+            }
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="space-y-4">
+          <h4 class="font-semibold text-slate-800">For Users</h4>
+          <div class="flex flex-col space-y-2">
+            <a routerLink="/user-dashboard" class="text-slate-500 hover:text-green-600 transition">My Downloads</a>
+            <a routerLink="/account-settings" class="text-slate-500 hover:text-green-600 transition">Account Settings</a>
+            <a routerLink="/help" class="text-slate-500 hover:text-green-600 transition">Help Center</a>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h4 class="font-semibold text-slate-800">For Publishers</h4>
+          <div class="flex flex-col space-y-2">
+            <a routerLink="/publisher-dashboard" class="text-slate-500 hover:text-green-600 transition">My Apps</a>
+            <a routerLink="/publish" class="text-slate-500 hover:text-green-600 transition">Publish an App</a>
+            <a routerLink="/policy" class="text-slate-500 hover:text-green-600 transition">Developer Policy</a>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h4 class="font-semibold text-slate-800">Company</h4>
+          <div class="flex flex-col space-y-2">
+            <a routerLink="/about" class="text-slate-500 hover:text-green-600 transition">About Us</a>
+            <a routerLink="/contact" class="text-slate-500 hover:text-green-600 transition">Contact</a>
+            <a routerLink="/privacy" class="text-slate-500 hover:text-green-600 transition">Privacy Policy</a>
+            <a routerLink="/terms" class="text-slate-500 hover:text-green-600 transition">Terms of Service</a>
+          </div>
+        </div>
+        <div class="space-y-4">
+           <h4 class="font-semibold text-slate-800">Connect</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="text-slate-500 hover:text-green-600 transition text-xl"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-slate-500 hover:text-green-600 transition text-xl"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-slate-500 hover:text-green-600 transition text-xl"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-8 border-t border-slate-200 pt-8 text-center text-slate-500 text-sm">
+        &copy; 2024 AppHarbor. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</div>
